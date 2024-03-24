@@ -1,0 +1,7 @@
+{
+  "api_path": "/v1",
+  "port": 8080,
+  "log_level": "debug",
+  "database_host": "mongodb://localhost:27017/?replicaSet=rs0",
+  "location": "data"
+}

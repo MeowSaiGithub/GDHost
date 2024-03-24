@@ -1,0 +1,521 @@
+{
+	"info": {
+		"_postman_id": "b0efc77f-bc27-476c-9ab1-69facc9666b3",
+		"name": "deployment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19230453"
+	},
+	"item": [
+		{
+			"name": "create go dockerfile",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"version\": \"1.20.5\",\r\n    \"os\": \"linux\",\r\n    \"arch\": \"amd64\",\r\n    \"cgo\": false,\r\n    \"tag\": \"optional\",\r\n    \"output\": \"hello\",\r\n    \"flags\": \"-ldflags '-w -s'\",\r\n    \"cmd\": \"optional\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/v1/deployments/{{deployment_id}}/dockerfile/go",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"deployments",
+						"{{deployment_id}}",
+						"dockerfile",
+						"go"
+					]
+				},
+				"description": "Create a Go Dockerfile from build-in template file. Aside from version, all other fields are optional and omitable."
+			},
+			"response": [
+				{
+					"name": "success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"version\": \"1.20.5\",\r\n    \"os\": \"linux\",\r\n    \"arch\": \"amd64\",\r\n    \"cgo\": false,\r\n    \"output\": \"hello\",\r\n    \"flags\": \"-ldflags '-w -s'\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/v1/deployments/{{deployment_id}}/dockerfile/go",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"deployments",
+								"{{deployment_id}}",
+								"dockerfile",
+								"go"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "X-Request-Id",
+							"value": "e468c53b-e751-4ed0-b3c7-5f691846a40c"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 24 Mar 2024 09:26:49 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "73"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"dockerfile created\",\n    \"ts\": \"2024-03-24T15:56:49.8020548+06:30\"\n}"
+				}
+			]
+		},
+		{
+			"name": "create deployment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/HP/Documents/Projects/m/hosting/GDHost/sample 1.zip"
+						},
+						{
+							"key": "name",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{host}}/v1/deployments/create",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"deployments",
+						"create"
+					]
+				},
+				"description": "Create a deployment. file need to be .zip file and name cannot be duplicate."
+			},
+			"response": [
+				{
+					"name": "success example",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/HP/Documents/Projects/m/hosting/GDHost/sample 1.zip"
+								},
+								{
+									"key": "name",
+									"value": "test",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/v1/deployments/create",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"deployments",
+								"create"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "X-Request-Id",
+							"value": "15c18c4e-8d4e-436a-8cb0-38ed8aa717ba"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 24 Mar 2024 09:21:45 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "90"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"9b68b132-3840-466f-a51d-109e2cae7e7b\",\n    \"ts\": \"2024-03-24T15:51:45.484483+06:30\"\n}"
+				}
+			]
+		},
+		{
+			"name": "create image",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/v1/deployments/{{deployment_id}}/image",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"deployments",
+						"{{deployment_id}}",
+						"image"
+					]
+				},
+				"description": "Create a docker image from the dockerfile. Dockerfile need to be first created/uploaded."
+			},
+			"response": []
+		},
+		{
+			"name": "deployment run",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"host_port\": 8081,\r\n    \"container_port\": 80\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/v1/deployments/{{deployment_id}}/run",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"deployments",
+						"{{deployment_id}}",
+						"run"
+					]
+				},
+				"description": "Run the deployment. Need \"host_port\" and \"container_port \" for the first time run. \"host_port\" is the port where service is currently running and \"container_port\" is where your deployment will run."
+			},
+			"response": []
+		},
+		{
+			"name": "container delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/v1/deployments/{{deployment_id}}/container",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"deployments",
+						"{{deployment_id}}",
+						"container"
+					]
+				},
+				"description": "Delete the deployment container."
+			},
+			"response": []
+		},
+		{
+			"name": "deployment stop",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/v1/deployments/{{deployment_id}}/stop",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"deployments",
+						"{{deployment_id}}",
+						"stop"
+					]
+				},
+				"description": "Stop deployment container."
+			},
+			"response": []
+		},
+		{
+			"name": "get deployment",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/v1/deployments/{{deployment_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"deployments",
+						"{{deployment_id}}"
+					]
+				},
+				"description": "Get the specific deployment details."
+			},
+			"response": [
+				{
+					"name": "success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/v1/deployments/{{deployment_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"deployments",
+								"{{deployment_id}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "X-Request-Id",
+							"value": "9b639341-93e5-4436-8a5e-291ced857ab7"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 24 Mar 2024 09:24:09 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "219"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"deployment\": {\n        \"ID\": \"9b68b132-3840-466f-a51d-109e2cae7e7b\",\n        \"created_at\": \"2024-03-24T09:21:45.462Z\",\n        \"name\": \"test\",\n        \"stage\": \"File Uploaded\",\n        \"updated_at\": \"2024-03-24T09:21:45.462Z\"\n    },\n    \"ts\": \"2024-03-24T15:54:09.1009311+06:30\"\n}"
+				}
+			]
+		},
+		{
+			"name": "get deployments",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/v1/deployments/?limit=10&page=1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"deployments",
+						""
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "10"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				},
+				"description": "Get all deployments details. \"limit\" and \"page\" are omitable."
+			},
+			"response": []
+		},
+		{
+			"name": "get logs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/v1/deployments/{{deployment_id}}/log",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"deployments",
+						"{{deployment_id}}",
+						"log"
+					]
+				},
+				"description": "Get deployment container logs."
+			},
+			"response": []
+		},
+		{
+			"name": "delete deployment",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/v1/deployments/{{deployment_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"deployments",
+						"{{deployment_id}}"
+					]
+				},
+				"description": "delete the deployments with all resource except for the database record."
+			},
+			"response": []
+		},
+		{
+			"name": "get dockerfile",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/v1/deployments/{{deployment_id}}/dockerfile",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"deployments",
+						"{{deployment_id}}",
+						"dockerfile"
+					]
+				},
+				"description": "Download the generated/uploaded dockerfile."
+			},
+			"response": []
+		},
+		{
+			"name": "upload dockerfile",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/HP/Documents/Projects/m/hosting/GDHost/test/9b68b132-3840-466f-a51d-109e2cae7e7b/application/Dockerfile"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{host}}/v1/deployments/{{deployment_id}}/dockerfile",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"deployments",
+						"{{deployment_id}}",
+						"dockerfile"
+					]
+				},
+				"description": "Upload a dockerfile for the deployment. file name need to be Dockerfile."
+			},
+			"response": [
+				{
+					"name": "success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/HP/Documents/Projects/m/hosting/GDHost/test/9b68b132-3840-466f-a51d-109e2cae7e7b/application/Dockerfile"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/v1/deployments/{{deployment_id}}/dockerfile",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"deployments",
+								"{{deployment_id}}",
+								"dockerfile"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "X-Request-Id",
+							"value": "ed0963c2-c293-473b-a9e1-1ed37489ebeb"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 24 Mar 2024 09:27:20 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "72"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"dockerfile uploaded\",\n    \"ts\": \"2024-03-24T15:57:20.75716+06:30\"\n}"
+				}
+			]
+		}
+	]
+}

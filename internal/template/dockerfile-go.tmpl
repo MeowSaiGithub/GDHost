@@ -1,0 +1,28 @@
+# syntax=docker/dockerfile:1
+##
+## BUILD
+##
+FROM golang:{{.GoVersion}}-alpine3.17 AS BUILD
+
+WORKDIR /app
+
+COPY go.mod go.sum ./
+
+RUN go mod download
+
+COPY . .
+
+RUN GOOS={{.GOOS}} GOARCH={{.GOARCH}} {{.CGO}} go build {{if ne .TAG ""}}-tags={{.TAG}} {{end}}-o {{.OUTPUT}} {{if ne .FLAGS ""}}{{.FLAGS}} {{end}}.
+
+##
+## Deploy
+##
+FROM alpine:3.17
+
+WORKDIR /app
+
+COPY --from=build /app/{{.OUTPUT}} ./{{.OUTPUT}}
+
+RUN chmod +x ./{{.OUTPUT}}
+
+CMD ["./{{.OUTPUT}}"]
